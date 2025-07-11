@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - CartLeap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #2979FF;
+            --accent: #FF5252;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --medium-gray: #777777;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: #1a68e6;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #ff3d3d;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        /* Cart Dropdown */
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+            padding: 20px;
+            z-index: 10;
+            display: none;
+        }
+
+        .cart-dropdown.active {
+            display: block;
+        }
+
+        .cart-dropdown h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .remove-item {
+            color: var(--accent);
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .cart-total {
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .cart-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Privacy Hero Section */
+        .privacy-hero {
+            background: linear-gradient(135deg, var(--primary), #6ec3f4);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .privacy-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .privacy-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Privacy Content */
+        .privacy-content {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .privacy-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .privacy-section {
+            margin-bottom: 40px;
+        }
+
+        .privacy-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .privacy-section h3 {
+            color: var(--dark-gray);
+            margin: 25px 0 15px;
+            font-size: 1.2rem;
+        }
+
+        .privacy-section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .privacy-section ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .privacy-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            font-style: italic;
+            color: var(--medium-gray);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .contact-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 60px 0;
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 15px 25px;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background-color: #ff3d3d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bbbbbb;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444444;
+            padding-top: 20px;
+            text-align: center;
+            color: #bbbbbb;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #444444;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 15px;
+            }
+
+            .privacy-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 4px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Cart<span>Leap</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li>
+                        <div class="cart-icon">
+                            🛒
+                            <span class="cart-count">0</span>
+                            <div class="cart-dropdown">
+                                <h3>Your Cart</h3>
+                                <div class="cart-items">
+                                    <!-- Cart items will be added here dynamically -->
+                                </div>
+                                <div class="cart-total">Total: ₹0</div>
+                                <div class="cart-actions">
+                                    <button class="btn">View Cart</button>
+                                    <button class="btn btn-accent">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Privacy Hero Section -->
+    <section class="privacy-hero">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy is important to us. Learn how we collect, use, and protect your personal information.</p>
+        </div>
+    </section>
+
+    <!-- Privacy Content -->
+    <section class="privacy-content">
+        <div class="container privacy-container">
+            <div class="privacy-section">
+                <h2>1. Introduction</h2>
+                <p>Welcome to CartLeap ("we," "our," or "us"). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://www.cartleap.com">www.cartleap.com</a> (the "Site") and use our services.</p>
+                
+                <p>Please read this Privacy Policy carefully. By accessing or using our Site and services, you agree to the terms of this Privacy Policy. If you do not agree with our policies and practices, please do not use our Site or services.</p>
+                
+                <p>This Privacy Policy may change from time to time. Your continued use of our Site after we make changes is deemed to be acceptance of those changes, so please check the policy periodically for updates.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>2. Information We Collect</h2>
+                <p>We collect several types of information from and about users of our Site, including:</p>
+                
+                <h3>2.1 Personal Information</h3>
+                <p>Personal information is data that can be used to identify or contact a single person. We may collect the following personal information:</p>
+                <ul>
+                    <li>Contact Information: Name, email address, phone number, shipping and billing addresses</li>
+                    <li>Account Information: Username, password, profile picture</li>
+                    <li>Payment Information: Credit/debit card details, billing address (processed through secure payment gateways)</li>
+                    <li>Demographic Information: Age, gender, preferences, interests</li>
+                    <li>Communication Data: Records of your communications with us, including customer service requests</li>
+                </ul>
+                
+                <h3>2.2 Non-Personal Information</h3>
+                <p>We may collect non-personal information about you whenever you interact with our Site. Non-personal information may include:</p>
+                <ul>
+                    <li>Browser type and version</li>
+                    <li>Device type and operating system</li>
+                    <li>IP address and general location information</li>
+                    <li>Pages visited, time spent on pages, and navigation patterns</li>
+                    <li>Search terms used on our Site</li>
+                    <li>Cookies and tracking technologies data (see Section 5 for more details)</li>
+                </ul>
+                
+                <h3>2.3 Information from Third Parties</h3>
+                <p>We may receive information about you from third parties, such as:</p>
+                <ul>
+                    <li>Social media platforms when you connect your account or log in through them</li>
+                    <li>Payment processors regarding the status of your payment</li>
+                    <li>Marketing partners who provide us with information about potential customers</li>
+                    <li>Service providers that help us verify your identity or prevent fraud</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>3. How We Use Your Information</h2>
+                <p>We use the information we collect for various purposes, including:</p>
+                
+                <h3>3.1 To Provide and Improve Our Services</h3>
+                <ul>
+                    <li>Process and fulfill your orders and transactions</li>
+                    <li>Create and manage your account</li>
+                    <li>Provide customer support and respond to your inquiries</li>
+                    <li>Improve our products, services, and user experience</li>
+                    <li>Develop new products, services, features, and functionality</li>
+                </ul>
+                
+                <h3>3.2 For Communication</h3>
+                <ul>
+                    <li>Send you transactional emails (order confirmations, shipping notifications, etc.)</li>
+                    <li>Respond to your customer service requests</li>
+                    <li>Send you marketing communications (if you've opted in)</li>
+                    <li>Notify you about changes to our services or policies</li>
+                </ul>
+                
+                <h3>3.3 For Marketing and Advertising</h3>
+                <ul>
+                    <li>Display personalized content and advertising</li>
+                    <li>Measure the effectiveness of our marketing campaigns</li>
+                    <li>Conduct market research and analysis</li>
+                    <li>Show you relevant products and offers</li>
+                </ul>
+                
+                <h3>3.4 For Security and Fraud Prevention</h3>
+                <ul>
+                    <li>Detect and prevent fraud, abuse, and security incidents</li>
+                    <li>Verify your identity and protect your account</li>
+                    <li>Investigate suspicious activity</li>
+                    <li>Comply with legal obligations</li>
+                </ul>
+                
+                <h3>3.5 For Legal Compliance</h3>
+                <ul>
+                    <li>Comply with applicable laws, regulations, and legal processes</li>
+                    <li>Respond to requests from public and government authorities</li>
+                    <li>Enforce our terms and conditions</li>
+                    <li>Protect our rights, privacy, safety, or property, and/or that of our affiliates, you, or others</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>4. How We Share Your Information</h2>
+                <p>We may share your information in the following circumstances:</p>
+                
+                <h3>4.1 With Service Providers</h3>
+                <p>We may share your information with third-party service providers who perform services on our behalf, such as:</p>
+                <ul>
+                    <li>Payment processors</li>
+                    <li>Shipping and delivery companies</li>
+                    <li>Marketing and advertising partners</li>
+                    <li>Customer service providers</li>
+                    <li>IT and cloud storage providers</li>
+                    <li>Analytics providers</li>
+                </ul>
+                
+                <h3>4.2 For Business Transfers</h3>
+                <p>If we are involved in a merger, acquisition, asset sale, financing, or similar transaction, we may transfer your information as part of that deal. We will notify you if your information becomes subject to a different privacy policy.</p>
+                
+                <h3>4.3 With Your Consent</h3>
+                <p>We may share your information with third parties when you give us explicit consent to do so.</p>
+                
+                <h3>4.4 For Legal Reasons</h3>
+                <p>We may disclose your information if we believe it is necessary to:</p>
+                <ul>
+                    <li>Comply with applicable law, regulation, or legal process</li>
+                    <li>Protect our rights, property, or safety, or that of our users or others</li>
+                    <li>Prevent or investigate possible wrongdoing in connection with our services</li>
+                    <li>Enforce our agreements, terms, and policies</li>
+                </ul>
+                
+                <h3>4.5 Aggregated or De-identified Data</h3>
+                <p>We may share aggregated or de-identified information that cannot reasonably be used to identify you for research, marketing, or other purposes.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>5. Cookies and Tracking Technologies</h2>
+                <p>We use cookies and similar tracking technologies to collect and use information about you, including to serve interest-based advertising.</p>
+                
+                <h3>5.1 What Are Cookies?</h3>
+                <p>Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used to make websites work more efficiently, as well as to provide information to the website owners.</p>
+                
+                <h3>5.2 Types of Cookies We Use</h3>
+                <ul>
+                    <li><strong>Essential Cookies:</strong> Necessary for the website to function and cannot be switched off.</li>
+                    <li><strong>Performance Cookies:</strong> Help us understand how visitors interact with our website.</li>
+                    <li><strong>Functionality Cookies:</strong> Enable enhanced functionality and personalization.</li>
+                    <li><strong>Targeting Cookies:</strong> Used to deliver relevant ads and measure ad performance.</li>
+                </ul>
+                
+                <h3>5.3 How to Manage Cookies</h3>
+                <p>Most web browsers allow you to control cookies through their settings preferences. However, if you limit the ability of websites to set cookies, you may worsen your overall user experience.</p>
+                
+                <h3>5.4 Other Tracking Technologies</h3>
+                <p>We may also use:</p>
+                <ul>
+                    <li><strong>Web Beacons:</strong> Small graphic images that may be included on our Site and emails.</li>
+                    <li><strong>Local Storage:</strong> Storing information locally on your device to enhance your experience.</li>
+                    <li><strong>Third-Party Analytics:</strong> Tools like Google Analytics to help us analyze Site usage.</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>6. Data Security</h2>
+                <p>We implement appropriate technical and organizational measures to protect your personal information from unauthorized access, use, disclosure, alteration, or destruction.</p>
+                
+                <h3>6.1 Security Measures</h3>
+                <p>Our security measures include:</p>
+                <ul>
+                    <li>Encryption of data in transit using SSL/TLS technology</li>
+                    <li>Secure storage of sensitive information</li>
+                    <li>Regular security assessments and testing</li>
+                    <li>Access controls and authentication procedures</li>
+                    <li>Employee training on data protection</li>
+                </ul>
+                
+                <h3>6.2 Payment Security</h3>
+                <p>All payment transactions are processed through secure payment gateways that comply with PCI-DSS standards. We do not store full credit card numbers on our servers.</p>
+                
+                <h3>6.3 Your Responsibilities</h3>
+                <p>While we strive to protect your information, you also play a role in maintaining security:</p>
+                <ul>
+                    <li>Choose a strong password for your account</li>
+                    <li>Do not share your login credentials with others</li>
+                    <li>Log out of your account when using shared devices</li>
+                    <li>Be cautious of phishing attempts</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>7. Your Rights and Choices</h2>
+                <p>Depending on your location, you may have certain rights regarding your personal information:</p>
+                
+                <h3>7.1 Access and Correction</h3>
+                <p>You may access, review, and update your personal information through your account settings. If you need assistance, please contact us.</p>
+                
+                <h3>7.2 Data Portability</h3>
+                <p>You may request a copy of your personal information in a structured, commonly used, and machine-readable format.</p>
+                
+                <h3>7.3 Deletion</h3>
+                <p>You may request deletion of your personal information, subject to certain exceptions required by law.</p>
+                
+                <h3>7.4 Marketing Preferences</h3>
+                <p>You may opt out of receiving marketing communications from us at any time by:</p>
+                <ul>
+                    <li>Using the unsubscribe link in our emails</li>
+                    <li>Updating your preferences in your account settings</li>
+                    <li>Contacting us directly</li>
+                </ul>
+                
+                <h3>7.5 Cookies and Tracking</h3>
+                <p>You can manage your cookie preferences through your browser settings or our cookie consent tool.</p>
+                
+                <h3>7.6 Do Not Track</h3>
+                <p>Our Site does not currently respond to "Do Not Track" signals from browsers.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>8. International Data Transfers</h2>
+                <p>Your information may be transferred to, stored, and processed in countries other than your own, including India and the United States, where our servers and service providers are located.</p>
+                
+                <p>We ensure that appropriate safeguards are in place to protect your information when it is transferred internationally, including:</p>
+                <ul>
+                    <li>Standard contractual clauses approved by relevant authorities</li>
+                    <li>Other legal mechanisms as required by applicable law</li>
+                </ul>
+                
+                <p>By using our services, you consent to the transfer of your information to countries outside your country of residence.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>9. Children's Privacy</h2>
+                <p>Our Site is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13, we will take steps to delete that information.</p>
+                
+                <p>If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>10. Third-Party Links</h2>
+                <p>Our Site may contain links to third-party websites, plug-ins, and applications. Clicking on those links may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements.</p>
+                
+                <p>We encourage you to read the privacy policy of every website you visit.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>11. Changes to This Privacy Policy</h2>
+                <p>We may update this Privacy Policy from time to time. The updated version will be indicated by an updated "Last Updated" date and will be effective as soon as it is accessible.</p>
+                
+                <p>We encourage you to review this Privacy Policy periodically to stay informed about how we are protecting your information.</p>
+                
+                <p>If we make material changes to this Privacy Policy, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>12. Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy or our privacy practices, please contact us:</p>
+                
+                <div class="contact-box">
+                    <h3>CartLeap Privacy Team</h3>
+                    <p><strong>Email:</strong> privacy@cartleap.com</p>
+                    <p><strong>Address:</strong> 42, Tech Park Road, Bangalore - 560001, Karnataka, India</p>
+                    <p><strong>Phone:</strong> 1800-123-LEAP (5327)</p>
+                </div>
+            </div>
+
+            <p class="last-updated">Last Updated: June 15, 2023</p>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Stay Updated with CartLeap</h2>
+            <p>Subscribe to our newsletter for the latest products, exclusive offers, and shopping tips.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">Fashion & Accessories</a></li>
+                        <li><a href="#">Gadgets & Tech</a></li>
+                        <li><a href="#">Home & Kitchen</a></li>
+                        <li><a href="#">Kids & Baby</a></li>
+                        <li><a href="#">Everyday Essentials</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Deals & Offers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Affiliates</a></li>
+                        <li><a href="#">Wholesale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                        <li><a href="#">Intellectual Property</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <address>
+                        CartLeap India Pvt. Ltd.<br>
+                        42, Tech Park Road<br>
+                        Bangalore - 560001<br>
+                        Karnataka, India<br><br>
+                        <strong>Email:</strong> support@cartleap.com<br>
+                        <strong>Phone:</strong> 1800-123-LEAP (5327)<br>
+                        <strong>Hours:</strong> 9AM-9PM (Mon-Sun)
+                    </address>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">TW</a>
+                        <a href="#">YT</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CartLeap. All Rights Reserved. | Designed with ❤️ in India for the world</p>
+                <p>Prices and availability are subject to change. All product names, logos, and brands are property of their respective owners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping Cart Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartIcon = document.querySelector('.cart-icon');
+            const cartDropdown = document.querySelector('.cart-dropdown');
+            const cartCount = document.querySelector('.cart-count');
+            const cartItems = document.querySelector('.cart-items');
+            const cartTotal = document.querySelector('.cart-total');
+            
+            let cart = [];
+            
+            // Toggle cart dropdown
+            cartIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                cartDropdown.classList.toggle('active');
+            });
+            
+            // Close cart when clicking outside
+            document.addEventListener('click', function() {
+                cartDropdown.classList.remove('active');
+            });
+            
+            // Prevent cart from closing when clicking inside
+            cartDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Update cart UI
+            function updateCart() {
+                // Update cart count
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                // Update cart items list
+                cartItems.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p>Your cart is empty</p>';
+                    cartTotal.textContent = 'Total: ₹0';
+                } else {
+                    let total = 0;
+                    
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        
+                        const cartItemElement = document.createElement('div');
+                        cartItemElement.className = 'cart-item';
+                        cartItemElement.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">₹${item.price} x ${item.quantity} = ₹${itemTotal}</div>
+                                <div class="remove-item" data-id="${item.id}">Remove</div>
+                            </div>
+                        `;
+                        
+                        cartItems.appendChild(cartItemElement);
+                    });
+                    
+                    cartTotal.textContent = `Total: ₹${total.toFixed(2)}`;
+                    
+                    // Add event listeners to remove buttons
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            removeFromCart(id);
+                        });
+                    });
+                }
+            }
+            
+            // Remove item from cart
+            function removeFromCart(id) {
+                cart = cart.filter(item => item.id !== id);
+                updateCart();
+            }
+            
+            // Initialize empty cart
+            updateCart();
+        });
+    </script>
+</body>
+</html>

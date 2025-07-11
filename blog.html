@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeapBlog - CartLeap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #2979FF;
+            --accent: #FF5252;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --medium-gray: #777777;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: #1a68e6;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #ff3d3d;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        /* Cart Dropdown */
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+            padding: 20px;
+            z-index: 10;
+            display: none;
+        }
+
+        .cart-dropdown.active {
+            display: block;
+        }
+
+        .cart-dropdown h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .remove-item {
+            color: var(--accent);
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .cart-total {
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .cart-actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary), #6ec3f4);
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .blog-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Blog Content */
+        .blog-content {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .blog-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article {
+            margin-bottom: 60px;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .article-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 40px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .article-date {
+            margin-right: 20px;
+        }
+
+        .article-category {
+            background-color: var(--light-gray);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .article-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .article-excerpt {
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more::after {
+            content: '→';
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .popular-posts {
+            list-style: none;
+        }
+
+        .popular-post {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .popular-post:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .popular-post-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .popular-post-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .popular-post-date {
+            color: var(--medium-gray);
+            font-size: 0.8rem;
+        }
+
+        .categories-list {
+            list-style: none;
+        }
+
+        .categories-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .categories-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            color: var(--dark-gray);
+            transition: var(--transition);
+        }
+
+        .categories-list a:hover {
+            color: var(--primary);
+        }
+
+        .categories-list span {
+            background-color: var(--light-gray);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background-color: var(--light-gray);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .tag:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 60px 0;
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 15px 25px;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background-color: #ff3d3d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bbbbbb;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444444;
+            padding-top: 20px;
+            text-align: center;
+            color: #bbbbbb;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #444444;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        /* Layout */
+        .blog-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .page-numbers {
+            display: flex;
+            list-style: none;
+        }
+
+        .page-numbers li {
+            margin: 0 5px;
+        }
+
+        .page-numbers a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            background-color: var(--light-gray);
+            transition: var(--transition);
+        }
+
+        .page-numbers a:hover, .page-numbers .current {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .blog-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 15px;
+            }
+
+            .blog-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .article-img {
+                height: 300px;
+            }
+
+            .article-content {
+                padding: 30px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 4px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .article-img {
+                height: 250px;
+            }
+
+            .article-content {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Cart<span>Leap</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li>
+                        <div class="cart-icon">
+                            🛒
+                            <span class="cart-count">0</span>
+                            <div class="cart-dropdown">
+                                <h3>Your Cart</h3>
+                                <div class="cart-items">
+                                    <!-- Cart items will be added here dynamically -->
+                                </div>
+                                <div class="cart-total">Total: ₹0</div>
+                                <div class="cart-actions">
+                                    <button class="btn">View Cart</button>
+                                    <button class="btn btn-accent">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <h1>LeapBlog</h1>
+            <p>Smart shopping tips, style guides, and the latest trends to help you leap ahead in your shopping journey</p>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <section class="blog-content">
+        <div class="container">
+            <div class="blog-layout">
+                <main>
+                    <!-- Featured Article -->
+                    <article class="article">
+                        <img src="b1.avif" alt="Smart Shopping" class="article-img">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">June 15, 2023</span>
+                                <span class="article-category">Shopping Tips</span>
+                            </div>
+                            <h2 class="article-title">Top 10 Under ₹999 That Look Premium</h2>
+                            <p class="article-excerpt">Discover our curated list of budget-friendly products that offer premium quality and style without breaking the bank. We've scoured our catalog to find items that punch above their weight class in terms of design, materials, and craftsmanship. From minimalist watches that mimic luxury brands to kitchen tools with professional-grade performance, these picks prove you don't need to spend a fortune to get quality...</p>
+                            <a href="#" class="read-more">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <!-- Article 2 -->
+                    <article class="article">
+                        <img src="b2.avif" alt="Capsule Wardrobe" class="article-img">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">June 8, 2023</span>
+                                <span class="article-category">Fashion</span>
+                            </div>
+                            <h2 class="article-title">How to Build a Capsule Wardrobe from CartLeap</h2>
+                            <p class="article-excerpt">A capsule wardrobe is a minimalist approach to fashion that focuses on quality over quantity. By selecting versatile, mix-and-match pieces, you can create countless outfits from just a few items. In this guide, we'll show you how to build a complete capsule wardrobe using affordable pieces from CartLeap. We'll cover the essential items every capsule wardrobe needs, how to choose colors that work together, and tips for transitioning your wardrobe between seasons...</p>
+                            <a href="#" class="read-more">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <!-- Article 3 -->
+                    <article class="article">
+                        <img src="b3.webp" alt="Shopping Psychology" class="article-img">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">June 1, 2023</span>
+                                <span class="article-category">Psychology</span>
+                            </div>
+                            <h2 class="article-title">Cart vs. Wishlist: Shopping Psychology Explained</h2>
+                            <p class="article-excerpt">Have you ever wondered why you add items to your wishlist but never buy them? Or why some products sit in your cart for weeks before you finally check out? Understanding the psychology behind these behaviors can help you make more intentional purchasing decisions. In this article, we explore the different mental processes behind wishlisting versus carting items, how retailers use these behaviors to their advantage, and strategies to avoid impulse purchases...</p>
+                            <a href="#" class="read-more">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <!-- Article 4 -->
+                    <article class="article">
+                        <img src="b4.webp" alt="Trending Products" class="article-img">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">May 25, 2023</span>
+                                <span class="article-category">Trends</span>
+                            </div>
+                            <h2 class="article-title">Leap-Style Picks: What's Trending This Month</h2>
+                            <p class="article-excerpt">Stay ahead of the curve with our monthly roundup of trending products across all categories. This month, we're seeing a surge in minimalist tech accessories, sustainable home goods, and versatile fashion pieces that transition from work to weekend. We'll break down why these items are gaining popularity, how to style or use them, and our top picks from CartLeap's collection. Whether you're an early adopter or prefer to wait until trends prove their staying power, this guide will help you navigate the current shopping landscape...</p>
+                            <a href="#" class="read-more">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <!-- Article 5 -->
+                    <article class="article">
+                        <img src="b5.avif" alt="Online Shopping" class="article-img">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span class="article-date">May 18, 2023</span>
+                                <span class="article-category">Shopping Tips</span>
+                            </div>
+                            <h2 class="article-title">10 Signs You're Getting a Good Deal Online</h2>
+                            <p class="article-excerpt">Online shopping offers convenience and often better prices, but how can you tell if you're really getting a good deal? In this article, we share 10 telltale signs that you've found a genuine bargain versus a too-good-to-be-true scam. Learn how to evaluate product quality through photos and descriptions, spot fake discounts, compare prices effectively across platforms, and use tools to check price histories. We'll also reveal some insider tips on the best times to shop for certain categories and how to leverage CartLeap's deal alerts...</p>
+                            <a href="#" class="read-more">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <ul class="page-numbers">
+                            <li><a href="#" class="current">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">→</a></li>
+                        </ul>
+                    </div>
+                </main>
+
+                <!-- Sidebar -->
+                <aside>
+                    <div class="sidebar">
+                        <h3 class="sidebar-title">Popular Posts</h3>
+                        <ul class="popular-posts">
+                            <li class="popular-post">
+                                <div>
+                                    <h4 class="popular-post-title">Top 10 Under ₹999 That Look Premium</h4>
+                                    <div class="popular-post-date">June 15, 2023</div>
+                                </div>
+                            </li>
+                            <li class="popular-post">
+                                <div>
+                                    <h4 class="popular-post-title">How to Build a Capsule Wardrobe</h4>
+                                    <div class="popular-post-date">June 8, 2023</div>
+                                </div>
+                            </li>
+                            <li class="popular-post">
+                                <div>
+                                    <h4 class="popular-post-title">Cart vs. Wishlist Psychology</h4>
+                                    <div class="popular-post-date">June 1, 2023</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar">
+                        <h3 class="sidebar-title">Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">Shopping Tips <span>24</span></a></li>
+                            <li><a href="#">Fashion <span>18</span></a></li>
+                            <li><a href="#">Gadgets & Tech <span>15</span></a></li>
+                            <li><a href="#">Home & Kitchen <span>12</span></a></li>
+                            <li><a href="#">Trends <span>9</span></a></li>
+                            <li><a href="#">Psychology <span>7</span></a></li>
+                            <li><a href="#">Deals & Offers <span>5</span></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar">
+                        <h3 class="sidebar-title">Tags</h3>
+                        <div class="tags">
+                            <a href="#" class="tag">Budget</a>
+                            <a href="#" class="tag">Style</a>
+                            <a href="#" class="tag">Minimalism</a>
+                            <a href="#" class="tag">Trending</a>
+                            <a href="#" class="tag">How To</a>
+                            <a href="#" class="tag">Reviews</a>
+                            <a href="#" class="tag">Guides</a>
+                            <a href="#" class="tag">Psychology</a>
+                            <a href="#" class="tag">Smart Shopping</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Get Shopping Insights Directly to Your Inbox</h2>
+            <p>Subscribe to our newsletter for exclusive content, early access to sales, and personalized recommendations.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">Fashion & Accessories</a></li>
+                        <li><a href="#">Gadgets & Tech</a></li>
+                        <li><a href="#">Home & Kitchen</a></li>
+                        <li><a href="#">Kids & Baby</a></li>
+                        <li><a href="#">Everyday Essentials</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Deals & Offers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Feedback</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Affiliates</a></li>
+                        <li><a href="#">Wholesale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                        <li><a href="#">Intellectual Property</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <address>
+                        CartLeap India Pvt. Ltd.<br>
+                        42, Tech Park Road<br>
+                        Bangalore - 560001<br>
+                        Karnataka, India<br><br>
+                        <strong>Email:</strong> support@cartleap.com<br>
+                        <strong>Phone:</strong> 1800-123-LEAP (5327)<br>
+                        <strong>Hours:</strong> 9AM-9PM (Mon-Sun)
+                    </address>
+                    <div class="social-links">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">TW</a>
+                        <a href="#">YT</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CartLeap. All Rights Reserved. | Designed with ❤️ in India for the world</p>
+                <p>Prices and availability are subject to change. All product names, logos, and brands are property of their respective owners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping Cart Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartIcon = document.querySelector('.cart-icon');
+            const cartDropdown = document.querySelector('.cart-dropdown');
+            const cartCount = document.querySelector('.cart-count');
+            const cartItems = document.querySelector('.cart-items');
+            const cartTotal = document.querySelector('.cart-total');
+            
+            let cart = [];
+            
+            // Toggle cart dropdown
+            cartIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                cartDropdown.classList.toggle('active');
+            });
+            
+            // Close cart when clicking outside
+            document.addEventListener('click', function() {
+                cartDropdown.classList.remove('active');
+            });
+            
+            // Prevent cart from closing when clicking inside
+            cartDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Update cart UI
+            function updateCart() {
+                // Update cart count
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                // Update cart items list
+                cartItems.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p>Your cart is empty</p>';
+                    cartTotal.textContent = 'Total: ₹0';
+                } else {
+                    let total = 0;
+                    
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        
+                        const cartItemElement = document.createElement('div');
+                        cartItemElement.className = 'cart-item';
+                        cartItemElement.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">₹${item.price} x ${item.quantity} = ₹${itemTotal}</div>
+                                <div class="remove-item" data-id="${item.id}">Remove</div>
+                            </div>
+                        `;
+                        
+                        cartItems.appendChild(cartItemElement);
+                    });
+                    
+                    cartTotal.textContent = `Total: ₹${total.toFixed(2)}`;
+                    
+                    // Add event listeners to remove buttons
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = this.getAttribute('data-id');
+                            removeFromCart(id);
+                        });
+                    });
+                }
+            }
+            
+            // Remove item from cart
+            function removeFromCart(id) {
+                cart = cart.filter(item => item.id !== id);
+                updateCart();
+            }
+            
+            // Initialize empty cart
+            updateCart();
+        });
+    </script>
+</body>
+</html>

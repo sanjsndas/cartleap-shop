@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CartLeap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #2979FF;
+            --accent: #FF5252;
+            --light-gray: #F5F5F5;
+            --dark-gray: #333333;
+            --medium-gray: #777777;
+            --white: #FFFFFF;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: #1a68e6;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #ff3d3d;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 10px auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+            position: relative;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent);
+            color: var(--white);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        /* Login Hero Section */
+        .login-hero {
+            background: linear-gradient(135deg, var(--primary), #6ec3f4);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .login-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .login-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Login Content */
+        .login-content {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+
+        .login-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: var(--light-gray);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .login-form h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(41, 121, 255, 0.2);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+        }
+
+        .forgot-password a {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .forgot-password a:hover {
+            color: var(--accent);
+        }
+
+        .form-submit {
+            margin-bottom: 20px;
+        }
+
+        .form-submit button {
+            width: 100%;
+        }
+
+        .social-login {
+            margin-bottom: 30px;
+        }
+
+        .social-login p {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+            color: var(--medium-gray);
+        }
+
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-radius: 4px;
+            color: var(--white);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .social-btn.google {
+            background-color: #DB4437;
+        }
+
+        .social-btn.facebook {
+            background-color: #4267B2;
+        }
+
+        .social-btn.twitter {
+            background-color: #1DA1F2;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .social-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-link p {
+            color: var(--medium-gray);
+        }
+
+        .register-link a {
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .register-link a:hover {
+            color: var(--accent);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--medium-gray);
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--medium-gray);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bbbbbb;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444444;
+            padding-top: 20px;
+            text-align: center;
+            color: #bbbbbb;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: #444444;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 15px;
+            }
+
+            .login-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Cart<span>Leap</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="active">Login</a></li>
+                    <li>
+                        <div class="cart-icon">
+                            🛒
+                            <span class="cart-count">0</span>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Hero Section -->
+    <section class="login-hero">
+        <div class="container">
+            <h1>Welcome Back!</h1>
+            <p>Login to your CartLeap account to access your orders, wishlist, and personalized recommendations.</p>
+        </div>
+    </section>
+
+    <!-- Login Content -->
+    <section class="login-content">
+        <div class="container">
+            <div class="login-container">
+                <form class="login-form" id="loginForm">
+                    <h2>Login to Your Account</h2>
+                    
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me" name="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                        <div class="forgot-password">
+                            <a href="#">Forgot password?</a>
+                        </div>
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="btn">Login</button>
+                    </div>
+                    
+                    <div class="social-login">
+                        <p>Or login with</p>
+                        <div class="social-buttons">
+                            <a href="#" class="social-btn google">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </a>
+                            <a href="#" class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                FB
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="register-link">
+                        <p>Don't have an account? <a href="#" id="openSignup">Sign up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Your Account</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <div class="tab active" data-tab="customer">Customer</div>
+                    <div class="tab" data-tab="seller">Seller</div>
+                </div>
+                
+                <div class="tab-content active" id="customer-tab">
+                    <form id="customerSignupForm">
+                        <div class="form-group">
+                            <label for="customer-name">Full Name</label>
+                            <input type="text" id="customer-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-email">Email Address</label>
+                            <input type="email" id="customer-email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-phone">Phone Number</label>
+                            <input type="tel" id="customer-phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-password">Password</label>
+                            <input type="password" id="customer-password" name="password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-confirm-password">Confirm Password</label>
+                            <input type="password" id="customer-confirm-password" name="confirm-password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="checkbox" id="customer-terms" name="terms" required>
+                            <label for="customer-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="tab-content" id="seller-tab">
+                    <form id="sellerSignupForm">
+                        <div class="form-group">
+                            <label for="seller-name">Business Name</label>
+                            <input type="text" id="seller-name" name="business-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="seller-email">Business Email</label>
+                            <input type="email" id="seller-email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="seller-phone">Business Phone</label>
+                            <input type="tel" id="seller-phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="seller-password">Password</label>
+                            <input type="password" id="seller-password" name="password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="seller-confirm-password">Confirm Password</label>
+                            <input type="password" id="seller-confirm-password" name="confirm-password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="seller-gst">GSTIN (Optional)</label>
+                            <input type="text" id="seller-gst" name="gst">
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="checkbox" id="seller-terms" name="terms" required>
+                            <label for="seller-terms">I agree to the <a href="#">Seller Agreement</a>, <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn">Apply as Seller</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="register-link" style="margin-top: 20px;">
+                    <p>Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">Fashion & Accessories</a></li>
+                        <li><a href="#">Gadgets & Tech</a></li>
+                        <li><a href="#">Home & Kitchen</a></li>
+                        <li><a href="#">Kids & Baby</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <address>
+                        CartLeap India Pvt. Ltd.<br>
+                        42, Tech Park Road<br>
+                        Bangalore - 560001<br>
+                        Karnataka, India<br><br>
+                        <strong>Email:</strong> support@cartleap.com<br>
+                        <strong>Phone:</strong> 1800-123-LEAP (5327)
+                    </address>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CartLeap. All Rights Reserved. | Designed with ❤️ in India for the world</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal functionality
+            const signupModal = document.getElementById('signupModal');
+            const openSignupBtn = document.getElementById('openSignup');
+            const closeModalBtn = document.getElementById('closeModal');
+            const switchToLoginBtn = document.getElementById('switchToLogin');
+            
+            // Open modal
+            openSignupBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupModal.classList.add('active');
+            });
+            
+            // Close modal
+            closeModalBtn.addEventListener('click', function() {
+                signupModal.classList.remove('active');
+            });
+            
+            // Switch to login from modal
+            switchToLoginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupModal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === signupModal) {
+                    signupModal.classList.remove('active');
+                }
+            });
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Form submissions
+            const loginForm = document.getElementById('loginForm');
+            const customerSignupForm = document.getElementById('customerSignupForm');
+            const sellerSignupForm = document.getElementById('sellerSignupForm');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                // Here you would typically validate and send to server
+                console.log('Login attempt with:', email, password);
+                alert('Login functionality would be implemented here. Redirecting to account page.');
+                // window.location.href = 'account.html';
+            });
+            
+            customerSignupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const password = document.getElementById('customer-password').value;
+                const confirmPassword = document.getElementById('customer-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                // Here you would typically validate and send to server
+                console.log('Customer signup form submitted');
+                alert('Account created successfully! Please check your email for verification.');
+                signupModal.classList.remove('active');
+            });
+            
+            sellerSignupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const password = document.getElementById('seller-password').value;
+                const confirmPassword = document.getElementById('seller-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                // Here you would typically validate and send to server
+                console.log('Seller signup form submitted');
+                alert('Seller application submitted! We will review your application and contact you shortly.');
+                signupModal.classList.remove('active');
+            });
+            
+            // Password toggle functionality (would be enhanced in production)
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
+            passwordInputs.forEach(input => {
+                const parent = input.parentElement;
+                const toggle = document.createElement('span');
+                toggle.innerHTML = '<i class="far fa-eye"></i>';
+                toggle.style.position = 'absolute';
+                toggle.style.right = '10px';
+                toggle.style.top = '50%';
+                toggle.style.transform = 'translateY(-50%)';
+                toggle.style.cursor = 'pointer';
+                toggle.style.color = 'var(--medium-gray)';
+                
+                parent.style.position = 'relative';
+                parent.appendChild(toggle);
+                
+                toggle.addEventListener('click', function() {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        toggle.innerHTML = '<i class="far fa-eye-slash"></i>';
+                    } else {
+                        input.type = 'password';
+                        toggle.innerHTML = '<i class="far fa-eye"></i>';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
